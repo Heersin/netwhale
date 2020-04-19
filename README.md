@@ -5,7 +5,10 @@ Netwhale is a Linux tool to capture packets and process it to audio sound. It so
 Once upon a time, I read the《Expert C Programming: Deep C Secrets》. Like those curious adventurers in those old tales, I was attracted by this sentence: "solaris has a tool to listen the sound of network packets", I didn't find it in my virtual machine, so I implement netwhale.
 
 ## Example
-
+ping from local machine
+<audio id="audio" controls="" preload="none">
+      <source id="mp3" src="https://github.com/Heersin/netwhale/example/ping_AAC.mp4">
+</audio>
 
 ## Requirement
 Before install this project, the following libirary is required.
