@@ -43,7 +43,7 @@ use -h to show the Usage.
 - -lx : contains l2, l3, l4, l5, design to filter the audio, such as '-l3' only listen to network layer, not implement yet.
 
 ## Architecture
-![Arch](https://github.com/Heersin/netwhale/example/netwhale.jpg)
+![Arch](https://github.com/Heersin/netwhale/blob/master/example/netwhale.jpg)
 ## Project Structure
 ```
 netwhale
