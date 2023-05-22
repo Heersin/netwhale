@@ -1,5 +1,5 @@
 netwhale: main.o utils.o dispatch.o parse.o
-	gcc -o netwhale main.o utils.o parse.o dispatch.o -lpcap
+	gcc -o netwhale main.o utils.o parse.o dispatch.o -lpcap -lm -lao
 
 main.o: main.c parse.h utils.h
 	gcc -c -g main.c -lpcap
