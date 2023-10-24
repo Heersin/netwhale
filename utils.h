@@ -35,7 +35,6 @@ extern pthread_mutex_t mutex;
 #define D_ 587
 #define D_P 622
 
-
 #define FORMAT_BITS 16
 #define FORMAT_CHANNEL 2
 #define FORMAT_RATE 44100

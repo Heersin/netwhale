@@ -48,25 +48,26 @@ void playTone(int freq, ao_device *device, float keep_time)
 	int play_bits;
 	ao_sample_format format;
 
-        memset(&format, 0, sizeof(format));
+	memset(&format, 0, sizeof(format));
 	format.bits = 16;
 	format.channels = 2;
 	format.rate = 44100;
 	format.byte_format = AO_FMT_LITTLE;
-	
+
 	play_bits = (int)(format.rate * keep_time);
 
-	buf_size = format.bits/8 * format.channels * play_bits;
+	buf_size = format.bits / 8 * format.channels * play_bits;
 	buffer = calloc(buf_size,
-			sizeof(char));
+					sizeof(char));
 
-	for (i = 0; i < play_bits; i++) {
+	for (i = 0; i < play_bits; i++)
+	{
 		sample = (int)(0.75 * 32768.0 *
-			sin(2 * M_PI * freq * ((float) i/format.rate)));
+					   sin(2 * M_PI * freq * ((float)i / format.rate)));
 
 		/* Put the same stuff in left and right channel */
-		buffer[4*i] = buffer[4*i+2] = sample & 0xff;
-		buffer[4*i+1] = buffer[4*i+3] = (sample >> 8) & 0xff;
+		buffer[4 * i] = buffer[4 * i + 2] = sample & 0xff;
+		buffer[4 * i + 1] = buffer[4 * i + 3] = (sample >> 8) & 0xff;
 	}
 	ao_play(device, buffer, buf_size);
 	usleep(130000);
@@ -93,8 +94,7 @@ int main(int argc, char **argv)
 
 	default_driver = ao_default_driver_id();
 
-
-        memset(&format, 0, sizeof(format));
+	memset(&format, 0, sizeof(format));
 	format.bits = 16;
 	format.channels = 2;
 	format.rate = 44100;
@@ -102,11 +102,51 @@ int main(int argc, char **argv)
 
 	/* -- Open driver -- */
 	device = ao_open_live(default_driver, &format, NULL /* no options */);
-	if (device == NULL) {
+	if (device == NULL)
+	{
 		fprintf(stderr, "Error opening device.\n");
 		return 1;
 	}
 
+	playTone(C, device, 0.5);
+	playTone(C, device, 0.5);
+	playTone(G, device, 0.5);
+	playTone(G, device, 0.5);
+	playTone(A, device, 0.5);
+	playTone(A, device, 0.5);
+	playTone(G, device, 0.5);
+
+	usleep(300000);
+
+	playTone(F, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(D, device, 0.5);
+	playTone(D, device, 0.5);
+	playTone(C, device, 0.5);
+
+	usleep(300000);
+
+	playTone(G, device, 0.5);
+	playTone(G, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(D, device, 0.5);
+
+	usleep(300000);
+
+	playTone(G, device, 0.5);
+	playTone(G, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(D, device, 0.5);
+
+	usleep(300000);
 
 	playTone(C, device, 0.5);
 	playTone(C, device, 0.5);
@@ -115,60 +155,20 @@ int main(int argc, char **argv)
 	playTone(A, device, 0.5);
 	playTone(A, device, 0.5);
 	playTone(G, device, 0.5);
-	
-	usleep(300000);
-
-	playTone(F,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(D,device, 0.5);
-	playTone(D,device, 0.5);
-	playTone(C,device, 0.5);
 
 	usleep(300000);
 
-	playTone(G,device, 0.5);
-	playTone(G,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(D,device, 0.5);
-
-	usleep(300000);
-
-	playTone(G,device, 0.5);
-	playTone(G,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(D,device, 0.5);
-
-	usleep(300000);
-
+	playTone(F, device, 0.5);
+	playTone(F, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(E, device, 0.5);
+	playTone(D, device, 0.5);
+	playTone(D, device, 0.5);
 	playTone(C, device, 0.5);
-	playTone(C, device, 0.5);
-	playTone(G, device, 0.5);
-	playTone(G, device, 0.5);
-	playTone(A, device, 0.5);
-	playTone(A, device, 0.5);
-	playTone(G, device, 0.5);
-	
-	usleep(300000);
-
-	playTone(F,device, 0.5);
-	playTone(F,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(E,device, 0.5);
-	playTone(D,device, 0.5);
-	playTone(D,device, 0.5);
-	playTone(C,device, 0.5);
 	/* -- Close and shutdown -- */
 	ao_close(device);
 
 	ao_shutdown();
 
-  return (0);
+	return (0);
 }

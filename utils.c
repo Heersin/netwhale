@@ -25,16 +25,19 @@ char *get_default_dev_name(char *errbuf)
     if (GET_IF_SUCCESS == pcap_findalldevs(&alldevsp, errbuf))
     {
         if (alldevsp == NULL)
-        {perror("[x]no available devs found");return -1;}
+        {
+            perror("[x]no available devs found");
+            return NULL;
+        }
 
-        pcap_if_t *cur_dev_p = alldevsp; 
+        pcap_if_t *cur_dev_p = alldevsp;
         char *desc;
-        
+
         if (cur_dev_p->description)
             desc = cur_dev_p->description;
         else
             desc = "None";
-            
+
         result = cur_dev_p->name;
         printf("[*]Default Device %s : %s\n", result, desc);
     }
@@ -49,39 +52,38 @@ char *get_default_dev_name(char *errbuf)
 // Not Thread Safety
 void playTone(int freq, ao_device *device, float keep_time)
 {
-	char *buffer;
-	int sample;
-	int i;
-	int buf_size;
-	int play_bits;
+    char *buffer;
+    int sample;
+    int i;
+    int buf_size;
+    int play_bits;
 
-	play_bits = (int)(FORMAT_RATE * keep_time);
-	buf_size = FORMAT_BITS/8 * FORMAT_CHANNEL * play_bits;
-	
-	
-	
-	buffer = calloc(buf_size,
-			sizeof(char));
+    play_bits = (int)(FORMAT_RATE * keep_time);
+    buf_size = FORMAT_BITS / 8 * FORMAT_CHANNEL * play_bits;
 
-	if(buffer == NULL){
-		fprintf(stderr, "calloc failed");
-		return;
-	}
+    buffer = calloc(buf_size,
+                    sizeof(char));
 
-	for (i = 0; i < play_bits; i++) {
-		sample = (int)(0.75 * 32768.0 *
-			sin(2 * M_PI * freq * ((float) i/FORMAT_RATE)));
+    if (buffer == NULL)
+    {
+        fprintf(stderr, "calloc failed");
+        return;
+    }
 
-		/* Put the same stuff in left and right channel */
-		buffer[4*i] = sample & 0xff; 
-		buffer[4*i+2] = sample & 0xff;
-		buffer[4*i+1] = (sample >> 8) & 0xff;
-		buffer[4*i+3] = (sample >> 8) & 0xff;
-	}
+    for (i = 0; i < play_bits; i++)
+    {
+        sample = (int)(0.75 * 32768.0 *
+                       sin(2 * M_PI * freq * ((float)i / FORMAT_RATE)));
+
+        /* Put the same stuff in left and right channel */
+        buffer[4 * i] = sample & 0xff;
+        buffer[4 * i + 2] = sample & 0xff;
+        buffer[4 * i + 1] = (sample >> 8) & 0xff;
+        buffer[4 * i + 3] = (sample >> 8) & 0xff;
+    }
 
     ao_play(device, buffer, buf_size);
     usleep(110370);
-
 }
 
 int mapTone(u_char byte)
@@ -90,15 +92,14 @@ int mapTone(u_char byte)
     // and 1300 freq is OK
     // so the byte data (0~255) -> map to (200 ~ 1020)
     // Normal can disguish 2 freq if their diffrence < 2 when freq under 1000hz
-    // 
+    //
     int result;
     result = ((int)byte) << 2;
     result += 200;
     return result;
 }
 
-
 void playByte(u_char byte)
 {
-	playTone(mapTone(byte), main_device, 0.5 );
+    playTone(mapTone(byte), main_device, 0.5);
 }

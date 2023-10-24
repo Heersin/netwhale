@@ -9,20 +9,20 @@ u_char *link_layer_dispatch(u_char *data, int *type, int link_type)
     switch (link_type)
     {
     case WLAN_80211_LINK:
-        fprintf(stderr,"[x]Dispatch : Not implement wlan 802.11 \n");
+        fprintf(stderr, "[x]Dispatch : Not implement wlan 802.11 \n");
         return NULL;
         break;
 
     case ETHERNET_LINK:
         // other linker layer type follows ether by using type in dispatch
         // example :  *types = mapType(data)
-        //          implement mapTypes yourself 
-        *type = ntohs(((ether_header *)data)->ether_type); 
+        //          implement mapTypes yourself
+        *type = ntohs(((ether_header *)data)->ether_type);
         return (data + ETHERNET_HDR_LEN);
         break;
 
     default:
-        fprintf(stderr,"[x]Dispatch : Not Implement Unkown protocol\n");
+        fprintf(stderr, "[x]Dispatch : Not Implement Unkown protocol\n");
         return NULL;
         break;
     }
@@ -83,7 +83,6 @@ u_char *transport_layer_dispatch(u_char *data, int *type)
         break;
     }
 }
-
 
 u_char *application_layer_dispatch(u_char *data, int *type)
 {

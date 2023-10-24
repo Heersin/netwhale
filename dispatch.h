@@ -23,20 +23,17 @@ u_char *link_layer_dispatch(u_char *data, int *type, int link_type);
 /*                  Network Layer              */
 /*----------------------------------------------*/
 #define IPV4_HDR_STATIC_LEN 20
-#define IPV4_NETWORK  0x0800
+#define IPV4_NETWORK 0x0800
 
 #define IPV6_NETWORK 0x86dd
 
 #define LOOPBACK_NETWORK 0x9000
 
-#define ARP_HDR_LEN	8
+#define ARP_HDR_LEN 8
 #define ARP_NETWORK 0x0806
-
 
 // functions
 u_char *network_layer_dispatch(u_char *data, int *type);
-
-
 
 /*----------------------------------------------*/
 /*                  Transport Layer             */
@@ -44,13 +41,13 @@ u_char *network_layer_dispatch(u_char *data, int *type);
 #define UDP_HDR_LEN 8
 #define UDP_TRANSPORT 0x11
 
-#define TCP_HDR_STATIC_LEN 20       // the length of fixed part
+#define TCP_HDR_STATIC_LEN 20 // the length of fixed part
 #define TCP_TRANSPORT 0x06
 
 #define ICMP_HDR_LEN 8
 #define ICMP_TRANSPORT 0x01
 
-// functions 
+// functions
 u_char *transport_layer_dispatch(u_char *data, int *type);
 
 /*----------------------------------------------*/
